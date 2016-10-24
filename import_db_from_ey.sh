@@ -9,6 +9,7 @@
 # VARS
 DB=$1
 PROGNAME=$(basename $0)
+REQUIRED_COMMAND_LINE_TOOLS=(eybackup pg_restore2)
 
 # FUNCTIONS
 function usage {
@@ -31,6 +32,13 @@ function check_arguments {
     usage
     error_exit "Bad arguments. Your must provide the database name to import."
   fi
+}
+
+function check_commands_installed {
+  for COMMAND in "${REQUIRED_COMMAND_LINE_TOOLS[@]}"; do
+    command -v $COMMAND >/dev/null 2>&1 ||
+      error_exit "$COMMAND not installed."
+  done
 }
 
 function download_database {
@@ -63,9 +71,15 @@ trap clean_up SIGHUP SIGINT SIGTERM
 
 # EXECUTION
 check_arguments $@
+check_commands_installed
+echo "Downloading database"
 download_database
 get_database_name
+echo "Setting the site offline"
 set_site_offline
+echo "Importing DB"
 import_database
+echo "Setting the site back online"
 set_site_online
+echo "Cleaning up"
 clean_up
