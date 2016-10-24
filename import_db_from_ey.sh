@@ -4,6 +4,8 @@
 #
 # Script to download and import a pgsql db from EY.
 #
+# Usage: import_db_from_ey db_name
+#
 # Simón Muñoz, Oct 24, 2016
 
 # VARS
@@ -57,7 +59,7 @@ function set_site_offline {
 }
 
 function import_database {
-  pg_restore -d $DB -c -U postgres /mnt/tmp/$DUMP_FILENAME ||
+  pg_restore -d $DB -c -U postgres /mnt/tmp/$DB_DUMP_FILENAME ||
     error_exit "Cannot import the database"
 }
 
