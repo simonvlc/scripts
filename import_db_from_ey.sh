@@ -9,7 +9,7 @@
 # VARS
 DB=$1
 PROGNAME=$(basename $0)
-REQUIRED_COMMAND_LINE_TOOLS=(eybackup pg_restore2)
+REQUIRED_COMMAND_LINE_TOOLS=(eybackup pg_restore)
 
 # FUNCTIONS
 function usage {
