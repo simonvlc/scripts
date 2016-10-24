@@ -29,7 +29,7 @@ function error_exit {
 }
 
 function check_number_of_arguments {
-  if [ $# -lt $ARGUMENTS_NUMBER ]
+  if [ $# -eq $ARGUMENTS_NUMBER ]
   then
     usage
     error_exit "Bad number of arguments."

@@ -28,16 +28,17 @@ function error_exit {
 	clean_up 1
 }
 
-function check_arguments {
-  if [ $# -lt 1 ]
+function check_number_of_arguments {
+  if [ $# -eq $ARGUMENTS_NUMBER ]
   then
     usage
-    error_exit "Bad arguments. Your must provide the database name to import."
+    error_exit "Bad number of arguments."
   fi
 }
 
-function check_commands_installed {
-  for COMMAND in "${REQUIRED_COMMAND_LINE_TOOLS[@]}"; do
+function check_command_line_tools_installed {
+  for COMMAND in "${REQUIRED_COMMAND_LINE_TOOLS[@]}"
+	do
     command -v $COMMAND >/dev/null 2>&1 ||
       error_exit "$COMMAND not installed."
   done
@@ -72,9 +73,9 @@ function set_site_online {
 trap clean_up SIGHUP SIGINT SIGTERM
 
 # EXECUTION
-check_arguments $@
-check_commands_installed
-echo "Downloading database"
+check_number_of_arguments $@
+check_command_line_tools_installed
+clean_up
 download_database
 get_database_name
 echo "Setting the site offline"
