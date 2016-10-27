@@ -11,11 +11,11 @@
 # VARS
 ARGUMENTS_NUMBER=1
 PROGNAME=$(basename $0)
-REQUIRED_COMMAND_LINE_TOOLS=(eybackup pg_restore)
+REQUIRED_COMMAND_LINE_TOOLS=(ls df)
 
 # FUNCTIONS
 function usage {
-	echo "Usage: $PROGNAME database_name" 1>&2
+	echo "Usage: $PROGNAME..." 1>&2
 }
 
 function clean_up {
